@@ -5,6 +5,10 @@
 # show-eol
 > Show end of line in buffer.
 
+| LF                                      | CRLF                                      | CR                                      |
+|:----------------------------------------|:------------------------------------------|:----------------------------------------|
+|<img src="./screenshot/show-eol-lf.gif"/>|<img src="./screenshot/show-eol-crlf.gif"/>|<img src="./screenshot/show-eol-cr.gif"/>|
+
 
 ## Usage
 Enable for all buffers.
