@@ -122,7 +122,7 @@
   "Enable 'show-eol-select' in current buffer."
   (add-hook 'after-save-hook 'show-eol-after-save-hook nil t)
 
-  (setq show-eol-record-whitespace-newline-face (list (face-attribute 'whitespace-newline :background)
+  (setq show-eol-record-whitespace-newline-attrs (list (face-attribute 'whitespace-newline :background)
                                                       (face-attribute 'whitespace-newline :foreground)))
   (set-face-attribute 'whitespace-newline nil :background (face-attribute 'show-eol-whitespace-newline :background))
   (set-face-attribute 'whitespace-newline nil :foreground (face-attribute 'show-eol-whitespace-newline :foreground))
@@ -135,8 +135,8 @@
   "Disable 'show-eol-mode' in current buffer."
   (remove-hook 'after-save-hook 'show-eol-after-save-hook t)
 
-  (set-face-attribute 'whitespace-newline nil :background (nth 0 show-eol-record-whitespace-newline-face))
-  (set-face-attribute 'whitespace-newline nil :foreground (nth 1 show-eol-record-whitespace-newline-face))
+  (set-face-attribute 'whitespace-newline nil :background (nth 0 show-eol-record-whitespace-newline-attrs))
+  (set-face-attribute 'whitespace-newline nil :foreground (nth 1 show-eol-record-whitespace-newline-attrs))
 
   (setq whitespace-display-mappings show-eol-record-whitespace-display-mappings)
   (whitespace-newline-mode -1))
