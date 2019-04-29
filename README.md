@@ -7,7 +7,7 @@
 
 | LF                                      | CRLF                                      | CR                                      |
 |:----------------------------------------|:------------------------------------------|:----------------------------------------|
-|<img src="./screenshot/show-eol-lf.gif"/>|<img src="./screenshot/show-eol-crlf.gif"/>|<img src="./screenshot/show-eol-cr.gif"/>|
+|<img src="./screenshot/show-eol-lf.png"/>|<img src="./screenshot/show-eol-crlf.png"/>|<img src="./screenshot/show-eol-cr.png"/>|
 
 
 ## Usage
