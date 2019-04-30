@@ -1,10 +1,10 @@
-;;; show-eol.el --- Show end of line in buffer.  -*- lexical-binding: t; -*-
+;;; show-eol.el --- Show end of line symbol in buffer.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  Shen, Jen-Chieh
 ;; Created date 2019-04-28 22:34:40
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: Show end of line in buffer.
+;; Description: Show end of line symbol in buffer.
 ;; Keyword: end eol line
 ;; Version: 0.0.1
 ;; Package-Requires: ((emacs "24.3"))
@@ -27,7 +27,7 @@
 
 ;;; Commentary:
 ;;
-;; Show end of line in buffer.
+;; Show end of line symbol in buffer.
 ;;
 
 ;;; Code:
@@ -37,7 +37,7 @@
 
 
 (defgroup show-eol nil
-  "Show end of line in buffer."
+  "Show end of line symbol in buffer."
   :prefix "show-eol-"
   :group 'tool
   :link '(url-link :tag "Repository" "https://github.com/jcs090218/show-eol"))
