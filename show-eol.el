@@ -74,7 +74,7 @@
 
 
 (defun show-eol-get-eol-mark-by-system ()
-  "Return the EOL mark in vector by system type."
+  "Return the EOL mark string by system type."
   (let ((bf-cs (symbol-name buffer-file-coding-system))
         (sys-mark nil))
     (cond ((string-match-p "dos" bf-cs)
@@ -85,31 +85,39 @@
            (setq sys-mark show-eol-lf-mark))
           (t  ;; Default EOL mark.
            (setq sys-mark show-eol-lf-mark)))
-    (vconcat sys-mark)))
+    sys-mark))
 
-(defun show-eol-newline-mark-index-in-list ()
-  "Return the `newline-mark''s index in the `whitespace-display-mappings' list."
+
+(defun show-eol-find-mark-in-list (mk-sym)
+  "Return the `mk-sym''s index in the `whitespace-display-mappings' list.
+MK-SYM : Mark symbol name."
   (let ((index 0)
         (mark-name nil)
         (nl-mark-index -1))
     (dolist (entry whitespace-display-mappings)
       (setq mark-name (car entry))
-      (when (eq 'newline-mark mark-name)
+      (when (eq mk-sym mark-name)
         (setq nl-mark-index index))
       (setq index (1+ index)))
     nl-mark-index))
+
+(defun show-eol-set-mark-with-string (mk-sym mk-str)
+  "Set the new mark by using string.
+MK-SYM : Mark symbol name.
+MK-STR : Mark string."
+  (let* ((sys-mark (vconcat mk-str))
+         (nl-mark-index (show-eol-find-mark-in-list mk-sym))
+         (nl-mark-code-point-address (caddr (nth nl-mark-index whitespace-display-mappings)))
+         (nl-mark-code-point-nl-elt (aref nl-mark-code-point-address (1- (length nl-mark-code-point-address))))
+         (new-nl-mark-vec (vconcat sys-mark (make-vector 1 nl-mark-code-point-nl-elt))))
+    (setf (caddr (nth nl-mark-index whitespace-display-mappings)) new-nl-mark-vec)))
 
 ;;;###autoload
 (defun show-eol-update-eol-marks ()
   "Update the EOL mark once."
   (interactive)
   (if show-eol-mode
-      (let* ((sys-mark (show-eol-get-eol-mark-by-system))
-             (nl-mark-index (show-eol-newline-mark-index-in-list))
-             (nl-mark-code-point-address (caddr (nth nl-mark-index whitespace-display-mappings)))
-             (nl-mark-code-point-nl-elt (aref nl-mark-code-point-address (1- (length nl-mark-code-point-address))))
-             (new-nl-mark-vec (vconcat sys-mark (make-vector 1 nl-mark-code-point-nl-elt))))
-        (setf (caddr (nth nl-mark-index whitespace-display-mappings)) new-nl-mark-vec))
+      (show-eol-set-mark-with-string 'newline-mark (show-eol-get-eol-mark-by-system))
     (error "Cannot show EOL when show-eol-mode is not enabled")))
 
 
