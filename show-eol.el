@@ -100,6 +100,8 @@ MK-STR : Mark string."
 (defun show-eol-update-eol-marks ()
   "Update the EOL mark once."
   (show-eol-set-mark-with-string 'newline-mark (show-eol-get-eol-mark-by-system))
+  ;; Calling this resets the whitespace glyphs to
+  ;; always be correct.
   (whitespace-newline-mode 1))
 
 (defun show-eol-after-save-hook ()
@@ -112,8 +114,7 @@ MK-STR : Mark string."
   (add-hook 'after-save-hook 'show-eol-after-save-hook nil t)
   (face-remap-add-relative 'whitespace-newline :inverse-video t)
   (setq-local whitespace-display-mappings (mapcar #'copy-sequence whitespace-display-mappings))
-  (show-eol-update-eol-marks)
-  (whitespace-newline-mode 1))
+  (show-eol-update-eol-marks))
 
 (defun show-eol-disable ()
   "Disable 'show-eol-mode' in current buffer."
