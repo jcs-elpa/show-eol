@@ -6,8 +6,8 @@
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; Description: Show end of line symbol in buffer.
 ;; Keyword: end eol line
-;; Version: 0.0.1
-;; Package-Requires: ((emacs "24.3"))
+;; Version: 0.0.2
+;; Package-Requires: ((emacs "24.4"))
 ;; URL: https://github.com/jcs090218/show-eol
 
 ;; This file is NOT part of GNU Emacs.
@@ -73,8 +73,7 @@
     sys-mark))
 
 (defun show-eol-find-mark-in-list (mk-sym)
-  "Return the `mk-sym''s index in the `whitespace-display-mappings' list.
-MK-SYM : Mark symbol name."
+  "Return the MK-SYM index in the `whitespace-display-mappings' list."
   (let ((index 0)
         (mark-name nil)
         (nl-mark-index -1))
@@ -86,9 +85,7 @@ MK-SYM : Mark symbol name."
     nl-mark-index))
 
 (defun show-eol-set-mark-with-string (mk-sym mk-str)
-  "Set the new mark by using string.
-MK-SYM : Mark symbol name.
-MK-STR : Mark string."
+  "Set the new mark, MK-SYM by using string, MK-STR."
   (let* ((sys-mark (vconcat mk-str))
          (nl-mark-index (show-eol-find-mark-in-list mk-sym))
          (nl-mark-code-point-address (caddr (nth nl-mark-index whitespace-display-mappings)))
@@ -107,17 +104,23 @@ MK-STR : Mark string."
   "Show EOL after save hook."
   (show-eol-update-eol-marks))
 
+(defun show-eol--set-buffer-file-coding-system--advice-after (&rest _)
+  "Advice execute after `set-buffer-file-coding-system' function is called."
+  (when show-eol-mode (show-eol-update-eol-marks)))
+
 
 (defun show-eol-enable ()
   "Enable 'show-eol-select' in current buffer."
   (add-hook 'after-save-hook 'show-eol-after-save-hook nil t)
   (setq-local whitespace-display-mappings (mapcar #'copy-sequence whitespace-display-mappings))
+  (advice-add 'set-buffer-file-coding-system :after #'show-eol--set-buffer-file-coding-system--advice-after)
   (show-eol-update-eol-marks))
 
 (defun show-eol-disable ()
   "Disable 'show-eol-mode' in current buffer."
   (remove-hook 'after-save-hook 'show-eol-after-save-hook t)
   (kill-local-variable 'whitespace-display-mappings)
+  (advice-remove 'set-buffer-file-coding-system #'show-eol--set-buffer-file-coding-system--advice-after)
   (whitespace-newline-mode -1))
 
 
