@@ -58,18 +58,21 @@
   :group 'show-eol)
 
 
+(defun show-eol--get-current-system ()
+  "Return the current system name."
+  (let ((bf-cs (symbol-name buffer-file-coding-system)))
+    (cond ((string-match-p "dos" bf-cs) 'dos)
+          ((string-match-p "mac" bf-cs) 'mac)
+          ((string-match-p "unix" bf-cs) 'unix)
+          (t 'unix))))
+
 (defun show-eol-get-eol-mark-by-system ()
   "Return the EOL mark string by system type."
-  (let ((bf-cs (symbol-name buffer-file-coding-system))
-        (sys-mark nil))
-    (cond ((string-match-p "dos" bf-cs)
-           (setq sys-mark show-eol-crlf-mark))
-          ((string-match-p "mac" bf-cs)
-           (setq sys-mark show-eol-cr-mark))
-          ((string-match-p "unix" bf-cs)
-           (setq sys-mark show-eol-lf-mark))
-          (t  ;; Default EOL mark.
-           (setq sys-mark show-eol-lf-mark)))
+  (let ((sys-mark nil))
+    (cl-case (show-eol--get-current-system)
+      ('dos (setq sys-mark show-eol-crlf-mark))
+      ('mac (setq sys-mark show-eol-cr-mark))
+      ('unix (setq sys-mark show-eol-lf-mark)))
     sys-mark))
 
 (defun show-eol-find-mark-in-list (mk-sym)
