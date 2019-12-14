@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/jcs090218/show-eol.svg?branch=master)](https://travis-ci.com/jcs090218/show-eol)
 [![MELPA](https://melpa.org/packages/show-eol-badge.svg)](https://melpa.org/#/show-eol)
+[![MELPA Stable](https://stable.melpa.org/packages/show-eol-badge.svg)](https://stable.melpa.org/#/show-eol)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
