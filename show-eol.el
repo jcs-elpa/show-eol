@@ -8,7 +8,7 @@
 ;; Keyword: end eol line
 ;; Version: 0.0.3
 ;; Package-Requires: ((emacs "24.4"))
-;; URL: https://github.com/jcs090218/show-eol
+;; URL: https://github.com/jcs-elpa/show-eol
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -38,7 +38,7 @@
   "Show end of line symbol in buffer."
   :prefix "show-eol-"
   :group 'tool
-  :link '(url-link :tag "Repository" "https://github.com/jcs090218/show-eol"))
+  :link '(url-link :tag "Repository" "https://github.com/jcs-elpa/show-eol"))
 
 (defcustom show-eol-lf-mark "LF"
   "Mark symbol for LF."
