@@ -6,9 +6,9 @@
 # show-eol
 > Show end of line symbol in buffer.
 
-| LF                                      | CRLF                                      | CR                                      |
-|:----------------------------------------|:------------------------------------------|:----------------------------------------|
-|<img src="./screenshot/show-eol-lf.png"/>|<img src="./screenshot/show-eol-crlf.png"/>|<img src="./screenshot/show-eol-cr.png"/>|
+| LF                               | CRLF                               | CR                               |
+|:---------------------------------|:-----------------------------------|:---------------------------------|
+|<img src="./etc/show-eol-lf.png"/>|<img src="./etc/show-eol-crlf.png"/>|<img src="./etc/show-eol-cr.png"/>|
 
 ## Usage
 
