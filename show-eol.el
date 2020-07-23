@@ -1,4 +1,4 @@
-;;; show-eol.el --- Show end of line symbol in buffer.  -*- lexical-binding: t; -*-
+;;; show-eol.el --- Show end of line symbol in buffer  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  Shen, Jen-Chieh
 ;; Created date 2019-04-28 22:34:40
@@ -32,9 +32,7 @@
 
 ;;; Code:
 
-
 (require 'whitespace)
-
 
 (defgroup show-eol nil
   "Show end of line symbol in buffer."
@@ -57,6 +55,7 @@
   :type 'string
   :group 'show-eol)
 
+;;; Core
 
 (defun show-eol--get-current-system ()
   "Return the current system name."
@@ -77,13 +76,10 @@
 
 (defun show-eol-find-mark-in-list (mk-sym)
   "Return the MK-SYM index in the `whitespace-display-mappings' list."
-  (let ((index 0)
-        (mark-name nil)
-        (nl-mark-index -1))
+  (let ((index 0) (mark-name nil) (nl-mark-index -1))
     (dolist (entry whitespace-display-mappings)
       (setq mark-name (car entry))
-      (when (eq mk-sym mark-name)
-        (setq nl-mark-index index))
+      (when (eq mk-sym mark-name) (setq nl-mark-index index))
       (setq index (1+ index)))
     nl-mark-index))
 
@@ -99,8 +95,7 @@
 (defun show-eol-update-eol-marks ()
   "Update the EOL mark once."
   (show-eol-set-mark-with-string 'newline-mark (show-eol-get-eol-mark-by-system))
-  ;; Calling this resets the whitespace glyphs to
-  ;; always be correct.
+  ;; Calling this resets the whitespace glyphs to always be correct.
   (whitespace-newline-mode 1))
 
 (defun show-eol-after-save-hook ()
@@ -111,6 +106,7 @@
   "Advice execute after `set-buffer-file-coding-system' function is called."
   (when show-eol-mode (show-eol-update-eol-marks)))
 
+;;; Entry
 
 (defun show-eol-enable ()
   "Enable 'show-eol-select' in current buffer."
@@ -126,15 +122,12 @@
   (advice-remove 'set-buffer-file-coding-system #'show-eol--set-buffer-file-coding-system--advice-after)
   (whitespace-newline-mode -1))
 
-
 ;;;###autoload
 (define-minor-mode show-eol-mode
   "Minor mode 'show-eol-mode'."
   :lighter " ShowEOL"
   :group show-eol
-  (if show-eol-mode
-      (show-eol-enable)
-    (show-eol-disable)))
+  (if show-eol-mode (show-eol-enable) (show-eol-disable)))
 
 (defun show-eol-turn-on-show-eol-mode ()
   "Turn on the 'shift-select-mode'."
@@ -144,7 +137,6 @@
 (define-globalized-minor-mode global-show-eol-mode
   show-eol-mode show-eol-turn-on-show-eol-mode
   :require 'show-eol)
-
 
 (provide 'show-eol)
 ;;; show-eol.el ends here
