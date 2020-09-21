@@ -67,11 +67,11 @@
 
 (defun show-eol-get-eol-mark-by-system ()
   "Return the EOL mark string by system type."
-  (let ((sys-mark nil))
-    (cl-case (show-eol--get-current-system)
-      ('dos (setq sys-mark show-eol-crlf-mark))
-      ('mac (setq sys-mark show-eol-cr-mark))
-      ('unix (setq sys-mark show-eol-lf-mark)))
+  (let ((sys-mark nil) (sys (show-eol--get-current-system)))
+    (cond ((eq sys 'dos) (setq sys-mark show-eol-crlf-mark))
+          ((eq sys 'mac) (setq sys-mark show-eol-cr-mark))
+          ((eq sys 'unix) (setq sys-mark show-eol-lf-mark))
+          (t (user-error "[WARNING] Unknown system type")))
     sys-mark))
 
 (defun show-eol-find-mark-in-list (mk-sym)
