@@ -55,6 +55,38 @@
   :type 'string
   :group 'show-eol)
 
+;;; Entry
+
+(defun show-eol-enable ()
+  "Enable 'show-eol-select' in current buffer."
+  (add-hook 'after-save-hook 'show-eol-after-save-hook nil t)
+  (setq-local whitespace-display-mappings (mapcar #'copy-sequence whitespace-display-mappings))
+  (advice-add 'set-buffer-file-coding-system :after #'show-eol--set-buffer-file-coding-system--advice-after)
+  (show-eol-update-eol-marks))
+
+(defun show-eol-disable ()
+  "Disable 'show-eol-mode' in current buffer."
+  (remove-hook 'after-save-hook 'show-eol-after-save-hook t)
+  (kill-local-variable 'whitespace-display-mappings)
+  (advice-remove 'set-buffer-file-coding-system #'show-eol--set-buffer-file-coding-system--advice-after)
+  (whitespace-newline-mode -1))
+
+;;;###autoload
+(define-minor-mode show-eol-mode
+  "Minor mode 'show-eol-mode'."
+  :lighter " ShowEOL"
+  :group show-eol
+  (if show-eol-mode (show-eol-enable) (show-eol-disable)))
+
+(defun show-eol-turn-on-show-eol-mode ()
+  "Turn on the 'shift-select-mode'."
+  (show-eol-mode 1))
+
+;;;###autoload
+(define-globalized-minor-mode global-show-eol-mode
+  show-eol-mode show-eol-turn-on-show-eol-mode
+  :require 'show-eol)
+
 ;;; Core
 
 (defun show-eol--get-current-system ()
@@ -105,38 +137,6 @@
 (defun show-eol--set-buffer-file-coding-system--advice-after (&rest _)
   "Advice execute after `set-buffer-file-coding-system' function is called."
   (when show-eol-mode (show-eol-update-eol-marks)))
-
-;;; Entry
-
-(defun show-eol-enable ()
-  "Enable 'show-eol-select' in current buffer."
-  (add-hook 'after-save-hook 'show-eol-after-save-hook nil t)
-  (setq-local whitespace-display-mappings (mapcar #'copy-sequence whitespace-display-mappings))
-  (advice-add 'set-buffer-file-coding-system :after #'show-eol--set-buffer-file-coding-system--advice-after)
-  (show-eol-update-eol-marks))
-
-(defun show-eol-disable ()
-  "Disable 'show-eol-mode' in current buffer."
-  (remove-hook 'after-save-hook 'show-eol-after-save-hook t)
-  (kill-local-variable 'whitespace-display-mappings)
-  (advice-remove 'set-buffer-file-coding-system #'show-eol--set-buffer-file-coding-system--advice-after)
-  (whitespace-newline-mode -1))
-
-;;;###autoload
-(define-minor-mode show-eol-mode
-  "Minor mode 'show-eol-mode'."
-  :lighter " ShowEOL"
-  :group show-eol
-  (if show-eol-mode (show-eol-enable) (show-eol-disable)))
-
-(defun show-eol-turn-on-show-eol-mode ()
-  "Turn on the 'shift-select-mode'."
-  (show-eol-mode 1))
-
-;;;###autoload
-(define-globalized-minor-mode global-show-eol-mode
-  show-eol-mode show-eol-turn-on-show-eol-mode
-  :require 'show-eol)
 
 (provide 'show-eol)
 ;;; show-eol.el ends here
