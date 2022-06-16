@@ -2,6 +2,9 @@
          "0.0.5"
          "Show end of line symbol in buffer")
 
+(website-url "https://github.com/jcs-elpa/show-eol")
+(keywords "end" "eol" "line")
+
 (package-file "show-eol.el")
 
 (source "melpa")

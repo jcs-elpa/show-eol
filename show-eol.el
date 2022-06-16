@@ -4,11 +4,10 @@
 ;; Created date 2019-04-28 22:34:40
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: Show end of line symbol in buffer.
-;; Keyword: end eol line
+;; URL: https://github.com/jcs-elpa/show-eol
 ;; Version: 0.0.5
 ;; Package-Requires: ((emacs "24.4"))
-;; URL: https://github.com/jcs-elpa/show-eol
+;; Keywords: end eol line
 
 ;; This file is NOT part of GNU Emacs.
 
