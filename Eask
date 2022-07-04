@@ -3,7 +3,7 @@
          "Show end of line symbol in buffer")
 
 (website-url "https://github.com/jcs-elpa/show-eol")
-(keywords "end" "eol" "line")
+(keywords "convenience" "end" "eol" "line")
 
 (package-file "show-eol.el")
 
