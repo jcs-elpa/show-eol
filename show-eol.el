@@ -7,7 +7,7 @@
 ;; URL: https://github.com/jcs-elpa/show-eol
 ;; Version: 0.0.5
 ;; Package-Requires: ((emacs "24.4"))
-;; Keywords: end eol line
+;; Keywords: convenience end eol line
 
 ;; This file is NOT part of GNU Emacs.
 
