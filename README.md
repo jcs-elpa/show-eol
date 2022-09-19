@@ -11,7 +11,7 @@
 |:---------------------------------|:-----------------------------------|:---------------------------------|
 |<img src="./etc/show-eol-lf.png"/>|<img src="./etc/show-eol-crlf.png"/>|<img src="./etc/show-eol-cr.png"/>|
 
-## Usage
+## 🔨 Usage
 
 Enable for all buffers.
 
