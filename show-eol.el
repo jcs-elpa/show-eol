@@ -31,6 +31,8 @@
 
 ;;; Code:
 
+(eval-when-compile (require 'whitespace))
+
 (defgroup show-eol nil
   "Show end of line symbol in buffer."
   :prefix "show-eol-"
