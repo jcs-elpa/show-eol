@@ -99,12 +99,11 @@
 ;;;###autoload
 (defun show-eol-get-eol-mark-by-system ()
   "Return the EOL mark string by system type."
-  (let ((sys (show-eol-get-current-system)) sys-mark)
-    (cond ((eq sys 'dos) (setq sys-mark show-eol-crlf-mark))
-          ((eq sys 'mac) (setq sys-mark show-eol-cr-mark))
-          ((eq sys 'unix) (setq sys-mark show-eol-lf-mark))
-          (t (user-error "[WARNING] Unknown system type")))
-    sys-mark))
+  (let ((sys (show-eol-get-current-system)))
+    (cond ((eq sys 'dos) show-eol-crlf-mark)
+          ((eq sys 'mac) show-eol-cr-mark)
+          ((eq sys 'unix) show-eol-lf-mark)
+          (t (user-error "[WARNING] Unknown system type")))))
 
 (defun show-eol-find-mark-in-list (mk-sym)
   "Return the MK-SYM index in the `whitespace-display-mappings' list."
