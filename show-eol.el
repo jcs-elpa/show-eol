@@ -31,8 +31,6 @@
 
 ;;; Code:
 
-(require 'whitespace)
-
 (defgroup show-eol nil
   "Show end of line symbol in buffer."
   :prefix "show-eol-"
@@ -57,14 +55,14 @@
 ;;; Entry
 
 (defun show-eol-enable ()
-  "Enable 'show-eol-select' in current buffer."
+  "Enable `show-eol-select' in current buffer."
   (add-hook 'after-save-hook 'show-eol-after-save-hook nil t)
   (setq-local whitespace-display-mappings (mapcar #'copy-sequence whitespace-display-mappings))
   (advice-add 'set-buffer-file-coding-system :after #'show-eol--set-buffer-file-coding-system--advice-after)
   (show-eol-update-eol-marks))
 
 (defun show-eol-disable ()
-  "Disable 'show-eol-mode' in current buffer."
+  "Disable `show-eol-mode' in current buffer."
   (remove-hook 'after-save-hook 'show-eol-after-save-hook t)
   (kill-local-variable 'whitespace-display-mappings)
   (advice-remove 'set-buffer-file-coding-system #'show-eol--set-buffer-file-coding-system--advice-after)
@@ -72,13 +70,14 @@
 
 ;;;###autoload
 (define-minor-mode show-eol-mode
-  "Minor mode 'show-eol-mode'."
+  "Minor mode `show-eol-mode'."
   :lighter " ShowEOL"
   :group show-eol
+  (require 'whitespace)
   (if show-eol-mode (show-eol-enable) (show-eol-disable)))
 
 (defun show-eol-turn-on-show-eol-mode ()
-  "Turn on the 'shift-select-mode'."
+  "Turn on the `shift-select-mode'."
   (show-eol-mode 1))
 
 ;;;###autoload
@@ -88,7 +87,8 @@
 
 ;;; Core
 
-(defun show-eol--get-current-system ()
+;;;###autoload
+(defun show-eol-get-current-system ()
   "Return the current system name."
   (let ((bf-cs (symbol-name buffer-file-coding-system)))
     (cond ((string-match-p "dos" bf-cs) 'dos)
@@ -96,9 +96,10 @@
           ((string-match-p "unix" bf-cs) 'unix)
           (t 'unix))))
 
+;;;###autoload
 (defun show-eol-get-eol-mark-by-system ()
   "Return the EOL mark string by system type."
-  (let ((sys-mark nil) (sys (show-eol--get-current-system)))
+  (let ((sys (show-eol-get-current-system)) sys-mark)
     (cond ((eq sys 'dos) (setq sys-mark show-eol-crlf-mark))
           ((eq sys 'mac) (setq sys-mark show-eol-cr-mark))
           ((eq sys 'unix) (setq sys-mark show-eol-lf-mark))
