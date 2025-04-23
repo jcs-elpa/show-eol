@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "show-eol"
          "0.0.5"
          "Show end of line symbol in buffer")
